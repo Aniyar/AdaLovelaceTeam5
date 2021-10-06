@@ -37,12 +37,14 @@ class Grid():
                 print(self.grid[i, j], end=" ")
             print("\n", end="")
 
-
-def throw_pesticides()
-    # create a splash object with coordinates and a radius
-    # splash should convert 1s on grid to 0s if it is in its range
-    # check if in radius of splash -> if it is turn 1 to 0
-
+    def throw(self, x, y, radius):
+        # допустим x = 5, y =4, radius =2 
+        # тогда [5, 4], [5, 5], [5, 6], [5, 4], [5, 3]
+        # (x-x0)^2 + (y - y0)^2 <= R^2      
+        for i in range(1, self.width-1):
+            for j in range(1, self.height-1):                
+                if (radius**2 >= (i - x)**2 + (j - y)**2):
+                    self.grid[i, j] = 2
 
 
 
@@ -61,9 +63,11 @@ clock = pg.time.Clock()
 colors = np.array([[120, 250, 90], [250, 90, 120], [255, 255, 255]])
 surface = pg.surfarray.make_surface(colors[pole.grid])
 surface = pg.transform.scale(surface, (SCREEN_WIDTH, SCREEN_WIDTH))  # Scaled a bit.
-
 running = True
+
+m = 0 
 while running:
+    m += 1
     for event in pg.event.get():
         if event.type == pg.QUIT:
             running = False
@@ -76,6 +80,8 @@ while running:
     pole.update()
     surface = pg.surfarray.make_surface(colors[pole.grid])
     surface = pg.transform.scale(surface, (SCREEN_WIDTH, SCREEN_WIDTH)) 
+    if m % 5 == 0:
+        pole.throw(np.random.randint(0, POLE_SIZE), np.random.randint(0, POLE_SIZE), np.random.randint(0, 100))
 
 
 
