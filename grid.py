@@ -1,11 +1,8 @@
 import numpy as np
-import pygame
-import random 
-import math
 import pygame as pg
 
 
-class Grid():
+class Grid:
     def __init__(self, a, b):
         self.width = a
         self.height = b
@@ -27,9 +24,6 @@ class Grid():
                         if np.random.rand() > 0.2:
                             updated[i+d[0], j+d[1]] = 1
         self.grid = updated
-        
-
-
     
     def print_grid(self):
         for i in range(self.width):
@@ -60,7 +54,6 @@ SCREEN_WIDTH = 600
 screen = pg.display.set_mode((600, 600))
 clock = pg.time.Clock()
 
-colors = np.array([[120, 250, 90], [250, 90, 120], [255, 255, 255]])
 surface = pg.surfarray.make_surface(colors[pole.grid])
 surface = pg.transform.scale(surface, (SCREEN_WIDTH, SCREEN_WIDTH))  # Scaled a bit.
 running = True
@@ -72,8 +65,7 @@ while running:
         if event.type == pg.QUIT:
             running = False
 
-    screen.fill((30, 30, 30))
-    screen.blit(surface, (100, 100))
+    screen.blit(surface, (0, 0))
     pg.display.flip()
 
     clock.tick(60)
